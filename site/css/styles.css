@@ -1,0 +1,253 @@
+body{
+    background-color: black;
+    margin: 0;
+}
+p{
+    font-family: 'Montserrat';
+    font-weight: 400;
+    color: white;
+}
+h1{
+    font-family: 'Montserrat';
+    font-weight: 700;
+    color: white;
+}
+header{
+    padding: 8px;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 8vh;
+    border-bottom: 2px solid #FFFFFF;
+    align-content: center;
+}
+
+header a{
+    font-weight: 600;
+    font-size: 2vh;
+    margin-right: 8px;
+    margin-left: 8px;
+}
+header a:hover{
+    cursor: pointer;
+    color: #FF6625;
+}
+
+button{
+    font-family: 'Montserrat';
+}
+
+a{
+    font-family: 'Montserrat';
+    color: white;
+    text-decoration-line: none;
+}
+button a{
+    color: #000;
+    height: max-content;
+}
+
+
+.headbtn{
+    padding: 1vw;
+    background-color: transparent;
+    color: #FFFFFF;
+    height: 8vh;
+    border: 0;
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 3vh;
+}
+.headbtn a{
+    color: white;
+}
+.headbtn:hover{
+    cursor: pointer;
+    background-color: #FF6625;
+}
+.headbtn:hover a{
+    color: black;
+}
+.headbtn:active{
+    background-color: transparent;
+    color: white;
+}
+.ecoprnt{
+    position: relative;
+    height: 95vh;
+    background: 
+    linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
+    url("Content/bg.jpg") center/cover;
+}
+.ecochld{
+    position: absolute;
+    bottom: 0;
+}
+.ecochld p{
+    margin-left: 16px;
+}
+.ecochld h1{
+    margin: 0;
+    padding: 48px;
+    width: fit-content;
+    background-color: #FF6625;
+    color: black;
+    font-size: 10vw;
+    max-block-size: 100vh;
+    max-width: 100vw;
+}
+.news{
+    padding: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(45vw, 1fr));
+    grid-template-rows: 1fr 1fr;
+    gap: 16px;
+}
+.newsmain{
+    position: relative;
+    padding: 8px;
+    height: 32vh;
+    padding-bottom: 0;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    background-color: transparent;
+    border: 2px solid #FF6625;
+    clip-path: view-box;
+}
+.newsmain button{
+    position: absolute;
+    bottom: 0;
+    right: -2px;
+    font-size: 2.4vh ;
+    box-sizing: border-box;
+    background-color: #FF6625;
+    border: 0;
+    min-height: 8vh;
+    min-width: 18dvh;
+    font-weight: 600;
+    padding: 16px;
+    align-content: center;
+}
+.newsmain button:hover{
+    cursor:pointer;
+    align-content: center;
+    background-color: transparent;
+    border: 2px solid #FF6625;
+    border-bottom: 0;
+}
+.newsmain button:hover a{
+    color: #FFFFFF;
+}
+.newsmain button:active{
+    background-color: #FF6625;
+    color: black;
+}
+
+
+
+.newsmain h1{
+    color: #FF6625;
+    font-size: 2.4vh ;
+}
+.newsmain p{
+    font-size: 1.8vh;
+}
+
+.newsconta{
+    padding: 8px;
+    border: 2px solid #FF6625;
+    clip-path: view-box;
+}
+.newsconta img{
+    max-width: 35vw;
+}
+.newsconta h1{
+    font-size: 2.0vh ;
+}
+.newsconta p{
+    font-size: 1.4vh;
+}
+.about{
+    height: 28vh;
+    position: relative;
+    padding: 16px;
+}
+.about h1{
+    color: #FF6625;
+    font-size: 2.4vh ;
+}
+.about p{
+    font-size: 1.8vh;
+}
+.about button{
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    font-size: 20px;
+    box-sizing: border-box;
+    background-color: #FF6625;
+    border: 0;
+    min-height: 8vh;
+    min-width: 18dvh;
+    font-weight: 600;
+    font-size: 2.4vh ;
+    padding: 16px;
+    align-content: center;
+}
+.about button:hover{
+    cursor:pointer;
+    align-content: center;
+    background-color: transparent;
+    border: 2px solid #FF6625;
+}
+.about button:hover a{
+    color: #FFFFFF;
+}
+.about button:active{
+    background-color: #FF6625;
+    color: black;
+}
+
+.mainbody{
+    padding: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 95vh;
+    gap: 16px;
+}
+.newscolumn{
+    flex: 1 1 30vw;
+    min-width: none;
+    border: 2px solid #FF6625;
+    padding: 8px;
+}
+.newscolumn img{
+    max-width: 30vw;
+}
+
+.newscolumn h1{
+    font-size: 2.4vh;
+}
+.newscolumn p{
+    font-size: 1.8vh;
+}
+.aboutmain{
+    padding: 16px;
+}
+.aboutmain h1{
+    color: #FF6625;
+    font-size: 2.3vw;
+}
+.aboutmain p{
+    font-size: 1.1vw;
+}
+.develop{
+    padding: 16px;
+}
+.develop h1{
+    color: #FF6625;
+    font-size: 2.3vw;
+}
+.develop p{
+    font-size: 1.1vw;
+}
