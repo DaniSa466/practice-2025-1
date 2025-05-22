@@ -76,7 +76,7 @@ button a{
     height: 95vh;
     background: 
     linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
-    url("Content/bg.jpg") center/cover;
+    url("image/bg.jpg") center/cover;
 }
 .ecochld{
     position: absolute;
