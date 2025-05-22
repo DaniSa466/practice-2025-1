@@ -42,7 +42,7 @@ class Bullet(GameSprite):        # Класс пуль
 ```
 ## 2. Основные игровые механики
 ### Движение игрока:
-```
+```python
 def update(self):
     keys = key.get_pressed()
     if (keys[K_LEFT] or keys[K_a]) and self.rect.x > 5:
