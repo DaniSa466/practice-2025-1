@@ -30,62 +30,145 @@
 - Frontend: HTML5, CSS3
 
 # Выполнение вариативной части
-В ходе проектной практики была разработана игра в жанре "космический шутер" с использованием языка Python и библиотеки Pygame. Проект включал реализацию игровой механики, системы перезарядки, управления и визуализации.
-Цель: Создание функциональной игры с возможностью перезапуска и настройкой параметров.
-Задачи:
-Реализация движения игрока и врагов
-Система стрельбы и перезарядки
-Обработка столкновений
-Создание интерфейса с отображением счёта
-Реализация экрана завершения игры
+1. Архитектура проекта
+Код использует объектно-ориентированный подход с наследованием классов. Основные компоненты:
 
-### Используемые технологии
-- Python 3.x
-- Библиотека Pygame
-- Система контроля версий Git
- 
-### Реализация
-Основные классы
-``` python
-class GameSprite(sprite.Sprite):
-    # Базовый класс для всех игровых объектов
-    def init(self, player_image, player_x, player_y, size_x, size_y, player_speed):
-        super().init()
-        self.image = transform.scale(image.load(player_image), (size_x, size_y))
-        self.speed = player_speed
-        self.rect = self.image.get_rect()
-        self.rect.x = player_x
-        self.rect.y = player_y
+python
+class GameSprite(sprite.Sprite):  # Базовый класс для всех объектов
+class Player(GameSprite):        # Класс игрока
+class Enemy(GameSprite):         # Класс врагов
+class Asteroid(GameSprite):      # Класс астероидов 
+class Bullet(GameSprite):        # Класс пуль
+2. Основные игровые механики
+Движение игрока:
 
-#Система перезарядки:
+python
+def update(self):
+    keys = key.get_pressed()
+    if (keys[K_LEFT] or keys[K_a]) and self.rect.x > 5:
+        self.rect.x -= self.speed
+    if (keys[K_RIGHT] or keys[K_d]) and self.rect.x < WIN_WIDTH - 80:
+        self.rect.x += self.speed
+Управление стрелками или WASD
+
+Проверка границ экрана
+
+Система стрельбы:
+
+python
+def fire(self):
+    if self.bullets_left > 0:
+        fire_sound.play()
+        bullet = Bullet(img_bullet, self.rect.centerx, self.rect.top, 15, 20, BULLET_SPEED)
+        bullets.add(bullet)
+        self.bullets_left -= 1
+Ограниченный боезапас (MAX_BULLETS = 10)
+
+Визуализация и звук выстрела
+
+Перезарядка:
+
+python
 def reload(self):
     if self.can_reload and self.bullets_left < MAX_BULLETS:
         self.can_reload = False
-        self.reload_timer = RELOAD_COOLDOWN
+        self.reload_timer = RELOAD_COOLDOWN  # 60 кадров = 1 секунда
         self.bullets_left = MAX_BULLETS
-        return True
-    return False
+Активация по пробелу
 
-#Обработка ввода:
-keys = key.get_pressed()
-if (keys[K_LEFT] or keys[K_a]) and self.rect.x > 5:
-    self.rect.x -= self.speed
-if (keys[K_RIGHT] or keys[K_d]) and self.rect.x < WIN_WIDTH - 80:
-    self.rect.x += self.speed1
-```
-## Механика игры:
-- Управление кораблём с клавиатуры
-- Автоматическое движение врагов
-- Система подсчёта очков
-- Определение условий победы/поражения
-## Результаты
-- Реализована полноценная игровая механика
-- Создан интуитивно понятный интерфейс
-- Достигнута частота кадров 60 FPS
-- Реализована система перезапуска игры
-## Перспективы развития
-- Добавление различных типов врагов
-- Реализация системы уровней
-- Добавление звуковых эффектов
-- Создание меню настроек
+Визуальный индикатор перезарядки
 
+3. Игровой цикл
+Основные этапы:
+
+Обработка ввода:
+
+python
+for e in event.get():
+    if e.type == KEYDOWN:
+        if e.key == K_SPACE:
+            if ship.bullets_left > 0:
+                ship.fire()
+            else:
+                ship.reload()
+Обновление состояния:
+
+python
+ship.update()
+monsters.update()
+bullets.update()
+asteroids.update()
+Отрисовка:
+
+python
+window.blit(background, (0, 0))
+ship.reset()
+monsters.draw(window)
+# ... остальная отрисовка
+Проверка столкновений:
+
+python
+colides = sprite.groupcollide(monsters, bullets, True, True)
+for _ in colides:
+    score += 1
+    # Создание нового врага
+4. Особенности реализации
+Музыкальный движок:
+
+python
+mixer.music.load('space.ogg')
+mixer.music.play(-1)  # Бесконечное повторение
+if not mixer.music.get_busy():  # Защита от остановки
+    mixer.music.play()
+Система перезапуска:
+
+python
+def init_game():  # Полная реинициализация игры
+    global ship, monsters, bullets, score, lost
+    ship = Player(...)
+    monsters = sprite.Group()
+    # ... создание новых объектов
+    score = 0
+    lost = 0
+Интерфейс:
+
+python
+# Отображение счётчиков
+text_score = font2.render(f'Score: {score}', 1, WHITE)
+text_ammo = font2.render(f'Ammo: {ship.bullets_left}/{MAX_BULLETS}', 1, WHITE)
+
+# Кнопка рестарта
+draw.rect(window, BLUE, restart_btn)
+window.blit(restart_text, (restart_btn.x + 50, restart_btn.y + 10))
+5. Оптимизации
+Группы спрайтов для эффективного управления:
+
+python
+monsters = sprite.Group()
+bullets = sprite.Group()
+asteroids = sprite.Group()
+Повторное использование объектов врагов:
+
+python
+def reinit(self):  # Вместо удаления/создания
+    self.rect.x = randint(80, WIN_WIDTH - 80)
+    self.rect.y = -40
+Единый игровой цикл с фиксированным FPS:
+
+python
+clock = pygame.time.Clock()
+while running:
+    clock.tick(60)  # 60 FPS
+Полный код представляет собой законченное игровое решение с:
+
+Плавным управлением
+
+Балансом сложности
+
+Понятным интерфейсом
+
+Системой перезапуска
+
+Визуальной и звуковой обратной связью
+
+Для дальнейшего развития проекта можно добавить систему уровней, различные типы оружия и бонусы.
